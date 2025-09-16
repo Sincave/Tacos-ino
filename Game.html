@@ -1,0 +1,648 @@
+
+   <!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Game tacos ino</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('B3.jpg');
+            background-size: cover;
+            background-position: center;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            padding: 15px 30px;
+            background:linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+            border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 600px;
+        }
+      
+      .logo-container {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-left: 15px;
+    border: 3px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:rgba(0, 0, 0, 0.5) ;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+.logo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+        
+        .logo-placeholder {
+            font-size: 2rem;
+            color: #fff;
+        }
+        
+        .restaurant-name {
+            font-size: 2rem;
+            color: orange;
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0);
+        }
+        
+        .password-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            width: 100%;
+            margin: 20px auto;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .game-rules {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: right;
+            border-right: 4px solid orange;
+        }
+        
+        .game-rules h3 {
+            color: orange;
+            margin-bottom: 15px;
+            text-align: center;
+            font-size: 1.4rem;
+        }
+        
+        .game-rules ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        
+        .game-rules li {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            font-size: 1.1rem;
+        }
+        
+        .game-rules li i {
+            margin-left: 10px;
+            color: white;
+            font-size: 1.2rem;
+        }
+        
+        input {
+            width: 100%;
+            padding: 12px 15px;
+            margin: 10px 0;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50px;
+            background: rgba(0, 0, 0, 0.3);
+            color: white;
+            font-size: 1rem;
+            text-align: center;
+            outline: none;
+            transition: border-color 0.3s;
+            direction: ltr;
+        }
+        
+        input:focus {
+            border-color:white;
+            box-shadow: 0 0 10px orange;
+        }
+        
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        button {
+            background: linear-gradient(to right, #ff6b6b, #ff8e8e);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin: 15px 0;
+            transition: all 0.3s ease;
+            width: 100%;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+        }
+        
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.6);
+        }
+        
+        button:disabled {
+            background: #555;
+            color: #999;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .game-container {
+            display: none;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(255, 107, 107, 0.3);
+        }
+        
+        .game-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px 20px;
+            border-radius: 50px;
+        }
+        
+        .info-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .info-label {
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+        
+        .info-value {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #ffcc00;
+        }
+        
+        .guess-section {
+            margin: 20px 0;
+        }
+        
+        .result {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 15px;
+            font-size: 1.2rem;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(30, 30, 30, 0.7);
+            border: 2px solid #ff6b6b;
+            box-shadow: 0 0 15px rgba(255, 107, 107, 0.3);
+        }
+        
+        .success {
+            background: rgba(40, 167, 69, 0.2);
+            color: #7cff7c;
+            border-color: #28a745;
+        }
+        
+        .error {
+            background: rgba(220, 53, 69, 0.2);
+            color: #ff7c7c;
+            border-color: #dc3545;
+        }
+        
+        .discount-result {
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 15px;
+            font-size: 1.3rem;
+            background: linear-gradient(to right, #28a745, #20c997);
+            color: white;
+            text-align: center;
+            display: none;
+        }
+        
+        .password-hint {
+            font-size: 0.9rem;
+            margin-top: 5px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .play-limit {
+            margin-top: 15px;
+            padding: 10px;
+            background:rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            border: 1px solid white;
+        }
+        
+        .countdown {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: orange;
+            margin-top: 10px;
+        }
+        
+        .limit-reached {
+         background:rgba(0, 0, 0, 0.5);            padding: 15px;
+            border-radius: 15px;
+            margin-top: 20px;
+            
+        }
+
+        @media (max-width: 500px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .logo-container {
+                margin-left: 0;
+                margin-bottom: 10px;
+            }
+            
+            .restaurant-name {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+    <div class="logo-container">
+        <img src="Logotime.png" alt="Logo" class="logo">
+    </div>
+    <h1 class="restaurant-name"> GAME TACOS INO </h1>
+</div>
+        
+    
+    <div class="password-section" id="password-section">
+        <h2>لعبة تخمين الرقم</h2>
+        <p>خمن الرقم الصحيح بين 1 و 20 واربح خصمًا على طلبك!</p>
+        
+        <input type="password" id="password-input" placeholder="أدخل كلمة السر هنا">
+        <p class="password-hint">أطلـب كلمة السر في المطعم</p>
+        
+        <button id="start-btn">ابدأ اللعبة</button>
+        
+        <div class="play-limit" id="play-limit">
+            <p><i class="fas fa-info-circle"></i> يمكنك اللعب مرتين فقط خلال 24 ساعة</p>
+            <p id="remaining-attempts">المرات المتبقية اليوم: <span id="attempts-left">2</span></p>
+            <div class="countdown" id="countdown" style="display: none;">
+                الوقت المتبقي حتى إعادة التعيين: <span id="countdown-timer">24:00:00</span>
+            </div>
+        </div>
+        
+        <div class="game-rules">
+            <h3>قوانين اللعبة:</h3>
+            <ul>
+                <li><i class="fas fa-brain"></i> حاول تخمين الرقم بين 1 و 20</li>
+                <li><i class="fas fa-trophy"></i> إذا خمنت من المحاولة الأولى: خصم 10٪</li>
+                <li><i class="fas fa-medal"></i> إذا خمنت من المحاولة الثانية: خصم 5٪</li>
+                <li><i class="fas fa-clock"></i> إذا خمنت من المحاولة الثالثة: بدون خصم</li>
+                <li><i class="fas fa-lightbulb"></i> ستحصل على تلميحات بعد كل محاولة خاطئة</li>
+                <li><i class="fas fa-redo"></i> لديك 3 محاولات فقط لاكتشاف الرقم</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="game-container" id="game-container">
+        <div class="game-info">
+            <div class="info-item">
+                <span class="info-label">المحاولة</span>
+                <span class="info-value" id="attempt">1/3</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">الرقم</span>
+                <span class="info-value">1 - 20</span>
+            </div>
+        </div>
+        
+        <div class="guess-section">
+            <input type="number" id="guess-input" placeholder="أدخل رقم بين 1 و 20" min="1" max="20">
+            <button id="guess-btn">خمّن!</button>
+        </div>
+        
+        <div class="result" id="result">أدخل رقمك واختبر حظك!</div>
+        
+        <div class="discount-result" id="discount-result">
+            <!-- سيتم عرض نتيجة الخصم هنا -->
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // العناصر الرئيسية
+            const passwordInput = document.getElementById('password-input');
+            const startBtn = document.getElementById('start-btn');
+            const passwordSection = document.getElementById('password-section');
+            const gameContainer = document.getElementById('game-container');
+            const guessInput = document.getElementById('guess-input');
+            const guessBtn = document.getElementById('guess-btn');
+            const resultDiv = document.getElementById('result');
+            const discountResultDiv = document.getElementById('discount-result');
+            const attemptElement = document.getElementById('attempt');
+            const attemptsLeftElement = document.getElementById('attempts-left');
+            const countdownElement = document.getElementById('countdown');
+            const countdownTimerElement = document.getElementById('countdown-timer');
+            const playLimitSection = document.getElementById('play-limit');
+            
+            // كلمة السر
+            const correctPassword = "Tacosino@@";
+            
+            // متغيرات اللعبة
+            let randomNumber;
+            let attempts = 0;
+            let maxAttempts = 3;
+            let gameFinished = false;
+            let countdownInterval;
+            
+            // إعداد حدود اللعب
+            const MAX_PLAYS_PER_DAY = 2;
+            let playCount = 0;
+            let lastPlayDate = null;
+            let resetTime = null;
+            
+            // تهيئة بيانات اللعب
+            initPlayData();
+            
+            // إضافة event listeners
+            startBtn.addEventListener('click', startGame);
+            guessBtn.addEventListener('click', checkGuess);
+            passwordInput.addEventListener('keyup', function(e) {
+                if (e.key === 'Enter') {
+                    startGame();
+                }
+            });
+            guessInput.addEventListener('keyup', function(e) {
+                if (e.key === 'Enter') {
+                    checkGuess();
+                }
+            });
+            
+            // دالة تهيئة بيانات اللعب
+            function initPlayData() {
+                // جلب البيانات من localStorage
+                const savedPlayData = localStorage.getItem('playData');
+                
+                if (savedPlayData) {
+                    const playData = JSON.parse(savedPlayData);
+                    playCount = playData.playCount || 0;
+                    lastPlayDate = playData.lastPlayDate ? new Date(playData.lastPlayDate) : null;
+                    resetTime = playData.resetTime ? new Date(playData.resetTime) : null;
+                    
+                    // التحقق إذا كان اليوم قد تغير
+                    const now = new Date();
+                    if (lastPlayDate && now.toDateString() !== lastPlayDate.toDateString()) {
+                        // إعادة التعيين إذا كان يوم جديد
+                        playCount = 0;
+                        lastPlayDate = null;
+                        resetTime = null;
+                        savePlayData();
+                    }
+                }
+                
+                updatePlayLimitUI();
+                
+                // إذا وصل المستخدم للحد الأقصى، نبدأ العد التنازلي
+                if (playCount >= MAX_PLAYS_PER_DAY && resetTime) {
+                    startCountdown();
+                }
+            }
+            
+            // دالة حفظ بيانات اللعب
+            function savePlayData() {
+                const playData = {
+                    playCount: playCount,
+                    lastPlayDate: lastPlayDate ? lastPlayDate.toISOString() : null,
+                    resetTime: resetTime ? resetTime.toISOString() : null
+                };
+                
+                localStorage.setItem('playData', JSON.stringify(playData));
+                updatePlayLimitUI();
+            }
+            
+            // دالة تحديث واجهة حدود اللعب
+            function updatePlayLimitUI() {
+                const remaining = MAX_PLAYS_PER_DAY - playCount;
+                attemptsLeftElement.textContent = remaining;
+                
+                if (remaining <= 0) {
+                    playLimitSection.innerHTML = `
+                        <div class="limit-reached">
+                            <p><i class="fas fa-exclamation-circle"></i> لقد استنفذت عدد المحاولات المتاحة لهذا اليوم</p>
+                            <p class="countdown">الوقت المتبقي حتى إعادة التعيين: <span id="countdown-timer">24:00:00</span></p>
+                        </div>
+                    `;
+                    countdownElement.style.display = 'block';
+                    startBtn.disabled = true;
+                } else {
+                    startBtn.disabled = false;
+                }
+            }
+            
+            // دالة بدء العد التنازلي
+            function startCountdown() {
+                if (countdownInterval) {
+                    clearInterval(countdownInterval);
+                }
+                
+                countdownInterval = setInterval(updateCountdown, 1000);
+                updateCountdown();
+            }
+            
+            // دالة تحديث العد التنازلي
+            function updateCountdown() {
+                const now = new Date();
+                let timeLeft = resetTime - now;
+                
+                if (timeLeft <= 0) {
+                    // انتهى الوقت، إعادة تعيين العداد
+                    clearInterval(countdownInterval);
+                    playCount = 0;
+                    lastPlayDate = null;
+                    resetTime = null;
+                    savePlayData();
+                    updatePlayLimitUI();
+                    return;
+                }
+                
+                // حساب الساعات والدقائق والثواني المتبقية
+                const hours = Math.floor(timeLeft / (1000 * 60 * 60));
+                const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+                
+                // تحديث العنصر في الواجهة
+                countdownTimerElement.textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            }
+            
+            // دالة بدء اللعبة
+            function startGame() {
+                if (passwordInput.value !== correctPassword) {
+                    alert("كلمة السر خاطئة! حاول مرة أخرى.");
+                    return;
+                }
+                
+                // التحقق من عدد مرات اللعب
+                if (playCount >= MAX_PLAYS_PER_DAY) {
+                    alert("لقد استنفذت عدد المحاولات المتاحة لهذا اليوم. يرجى العودة غدًا!");
+                    return;
+                }
+                
+                // زيادة عداد اللعب
+                playCount++;
+                const now = new Date();
+                lastPlayDate = now;
+                
+                // إذا كانت هذه هي المرة الأولى اليوم، نضبط وقت إعادة التعيين بعد 24 ساعة
+                if (playCount === 1) {
+                    resetTime = new Date(now.getTime() + 24 * 60 * 60 * 1000);
+                }
+                
+                savePlayData();
+                
+                passwordSection.style.display = 'none';
+                gameContainer.style.display = 'block';
+                
+                initGame();
+            }
+            
+            // دالة تهيئة اللعبة
+            function initGame() {
+                randomNumber = Math.floor(Math.random() * 20) + 1;
+                attempts = 0;
+                gameFinished = false;
+                
+                updateAttemptDisplay();
+                resultDiv.textContent = "أدخل رقمك واختبر حظك!";
+                resultDiv.className = "result";
+                discountResultDiv.style.display = "none";
+                guessInput.value = "";
+                guessInput.disabled = false;
+                guessBtn.disabled = false;
+            }
+            
+            // دالة التحقق من التخمين
+            function checkGuess() {
+                if (gameFinished) return;
+                
+                const userGuess = parseInt(guessInput.value);
+                
+                // التحقق من صحة الإدخال
+                if (isNaN(userGuess) || userGuess < 1 || userGuess > 20) {
+                    resultDiv.textContent = "الرجاء إدخال رقم بين 1 و 20";
+                    resultDiv.className = "result error";
+                    return;
+                }
+                
+                attempts++;
+                updateAttemptDisplay();
+                
+              
+                // التحقق إذا كان التخمين صحيحًا
+                if (userGuess === randomNumber) {
+                    endGame(true);
+                    return;
+                }
+                
+                // إذا كانت المحاولة الأخيرة
+                if (attempts >= maxAttempts) {
+                    endGame(false);
+                    return;
+                }
+                
+                // تقديم تلميح
+                if (userGuess < randomNumber) {
+                    resultDiv.textContent = "الرقم أكبر من " + userGuess;
+                } else {
+                    resultDiv.textContent = "الرقم أصغر من " + userGuess;
+                }
+                resultDiv.className = "result error";
+                
+                guessInput.value = "";
+                guessInput.focus();
+            }
+            
+            // دالة إنهاء اللعبة
+            function endGame(isWinner) {
+                gameFinished = true;
+                guessInput.disabled = true;
+                guessBtn.disabled = true;
+                
+                if (isWinner) {
+                    let discount = 0;
+                    let message = "";
+                    
+                    if (attempts === 1) {
+                        discount = 10;
+                        message = "مذهل! لقد ربحت خصم 10٪ على طلبك القادم! 🎉";
+                    } else if (attempts === 2) {
+                        discount = 5;
+                        message = "جيد جدًا! لقد ربحت خصم 5٪ على طلبك القادم! 👍";
+                    } else {
+                        message = "حظًا أوفر في المرة القادمة! لم تربح أي خصم هذه المرة. 😊";
+                    }
+                    
+                    resultDiv.textContent = "تهانينا! لقد خمنت الرقم الصحيح (" + randomNumber + ")";
+                    resultDiv.className = "result success";
+                    
+                    if (discount > 0) {
+                        discountResultDiv.innerHTML = `
+                            <h3>${message}</h3>
+                            <p>عرض الخصم ساري حتى نهاية اليوم</p>
+                        `;
+                        discountResultDiv.style.display = "block";
+                    }
+                } else {
+                    resultDiv.textContent = "انتهت محاولاتك! الرقم الصحيح كان: " + randomNumber;
+                    resultDiv.className = "result error";
+                }
+                
+                // إضافة زر للعودة إلى القائمة الرئيسية
+                const backBtn = document.createElement("button");
+                backBtn.textContent = "العودة إلى القائمة الرئيسية";
+                backBtn.addEventListener('click', function() {
+                    gameContainer.style.display = 'none';
+                    passwordSection.style.display = 'block';
+                    this.remove();
+                });
+                resultDiv.after(backBtn);
+            }
+            
+            // دالة تحديث عرض المحاولات
+            function updateAttemptDisplay() {
+                attemptElement.textContent = attempts + "/" + maxAttempts;
+            }
+        });
+    </script>
+</body>
+</html>
+
+
+
