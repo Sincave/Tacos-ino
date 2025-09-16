@@ -13,8 +13,11 @@
 html,body{height:100%}
 body{
   margin:0;
-   background:black;
-  background-size: cover;
+       background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                    url("O1.jpg"); /* مسار الصورة */
+  background-size: cover; /* الصورة تغطي كامل الشاشة */
+  background-repeat: repeat; /* ما تتعاودش */
+  background-position: center; 
   color:var(--text);
   -webkit-font-smoothing:antialiased;
   -moz-osx-font-smoothing:grayscale;
