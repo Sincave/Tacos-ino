@@ -301,7 +301,7 @@
     <h1 class="restaurant-name"> GAME TACOS INO </h1>
          <h2 style="color: orange; font-size: 15px;">
       
-  جرب حظك واربح تخفيض 5٪ أو 10٪ 
+  جرب حظك واربح تخفيض 10٪ أو 20٪ 
 </h2>
 <hr style="border: 1px solid orange; width: 60%; margin: 5px auto;">
 </div>
@@ -321,7 +321,7 @@
         <button id="start-btn">ابدأ اللعبة</button>
         
         <div class="play-limit" id="play-limit">
-            <p><i class="fas fa-info-circle"></i> يمكنك اللعب مرتين فقط خلال 24 ساعة</p>
+            <p><i class="fas fa-info-circle"></i> يمكنك اللعب مرتين فقط خلال 2 ساعة</p>
             <p id="remaining-attempts">المرات المتبقية اليوم: <span id="attempts-left">2</span></p>
             <div class="countdown" id="countdown" style="display: none;">
                 الوقت المتبقي حتى إعادة التعيين: <span id="countdown-timer">24:00:00</span>
@@ -332,9 +332,9 @@
             <h3>قوانين اللعبة:</h3>
             <ul>
                 <li><i class="fas fa-brain"></i> حاول تخمين الرقم بين 1 و 20</li>
-                <li><i class="fas fa-trophy"></i> إذا خمنت من المحاولة الأولى: خصم 10٪</li>
-                <li><i class="fas fa-medal"></i> إذا خمنت من المحاولة الثانية: خصم 5٪</li>
-                <li><i class="fas fa-clock"></i> إذا خمنت من المحاولة الثالثة: بدون خصم</li>
+                <li><i class="fas fa-trophy"></i> إذا خمنت من المحاولة الأولى: خصم 20٪</li>
+                <li><i class="fas fa-medal"></i> إذا خمنت من المحاولة الثانية: خصم 10٪</li>
+                <li><i class="fas fa-clock"></i> إذا خمنت من المحاولة الثالثة:  لاشئ مع الأسف</li>
                 <li><i class="fas fa-lightbulb"></i> ستحصل على تلميحات بعد كل محاولة خاطئة</li>
                 <li><i class="fas fa-redo"></i> لديك 3 محاولات فقط لاكتشاف الرقم</li>
                 <li><i class="fas fa-utensils"></i> شرط الربح: باش تستافد من التخفيض خاصك تكل شي حاجة في المطعم. </li>
@@ -468,7 +468,7 @@
                     playLimitSection.innerHTML = `
                         <div class="limit-reached">
                             <p><i class="fas fa-exclamation-circle"></i> لقد استنفذت عدد المحاولات المتاحة لهذا اليوم</p>
-                            <p class="countdown">الوقت المتبقي حتى إعادة التعيين: <span id="countdown-timer">24:00:00</span></p>
+                            <p class="countdown">الوقت المتبقي حتى إعادة التعيين: <span id="countdown-timer">2:00:00</span></p>
                         </div>
                     `;
                     countdownElement.style.display = 'block';
@@ -611,11 +611,11 @@
                     let message = "";
                     
                     if (attempts === 1) {
-                        discount = 10;
-                        message = "مذهل! لقد ربحت خصم 10٪ على طلبك القادم! 🎉";
+                        discount = 20;
+                        message = "مذهل! لقد ربحت خصم 20٪ على طلبك القادم! 🎉";
                     } else if (attempts === 2) {
-                        discount = 5;
-                        message = "جيد جدًا! لقد ربحت خصم 5٪ على طلبك القادم! 👍";
+                        discount = 10;
+                        message = "جيد جدًا! لقد ربحت خصم 10٪ على طلبك القادم! 👍";
                     } else {
                         message = "حظًا أوفر في المرة القادمة! لم تربح أي خصم هذه المرة. 😊";
                     }
@@ -631,7 +631,7 @@
                         discountResultDiv.style.display = "block";
                     }
                 } else {
-                    resultDiv.textContent = "انتهت محاولاتك! الرقم الصحيح كان: " + randomNumber;
+                    resultDiv.textContent = "بشوية على الواحد 😂 الرقم الصحيح كان: " + randomNumber;
                     resultDiv.className = "result error";
                 }
                 
