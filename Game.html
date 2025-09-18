@@ -320,13 +320,12 @@
         
         <button id="start-btn">ابدأ اللعبة</button>
         
-        <div class="play-limit" id="play-limit">
-            <p><i class="fas fa-info-circle"></i> يمكنك اللعب مرتين فقط خلال 2 ساعة</p>
-            <p id="remaining-attempts">المرات المتبقية اليوم: <span id="attempts-left">2</span></p>
-            <div class="countdown" id="countdown" style="display: none;">
-                الوقت المتبقي حتى إعادة التعيين: <span id="countdown-timer">24:00:00</span>
-            </div>
+    <div id="play-limit">
+        <div class="limit-reached">
+            <p><i class="fas fa-exclamation-circle"></i> لقد استنفذت عدد المحاولات المتاحة لهذا اليوم</p>
+            <p class="countdown">الوقت المتبقي حتى إعادة التعيين: <span id="countdown-timer">02:00:00</span></p>
         </div>
+    </div>
         
         <div class="game-rules">
             <h3>قوانين اللعبة:</h3>
@@ -650,7 +649,10 @@
                 attemptElement.textContent = attempts + "/" + maxAttempts;
             }
         });
-    </script>
+               </script>
+
+
+
 </body>
 </html>
 
