@@ -503,7 +503,7 @@
                     updatePlayLimitUI();
                     return;
                 }
-                
+                                
                 // حساب الساعات والدقائق والثواني المتبقية
                 const hours = Math.floor(timeLeft / (1000 * 60 * 60));
                 const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
@@ -511,8 +511,7 @@
                 
                 // تحديث العنصر في الواجهة
                 countdownTimerElement.textContent = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-            }
-            
+       }
             // دالة بدء اللعبة
             function startGame() {
                 if (passwordInput.value !== correctPassword) {
