@@ -1,0 +1,21 @@
+{
+  "name": "Tacos ino Application",
+  "short_name": "Tacos ino",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#0078ff",
+  "description": "Un site qui peut être installé comme application.",
+  "icons": [
+    {
+      "src": "Logotime.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "Logotim.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
