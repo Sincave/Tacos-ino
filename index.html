@@ -395,11 +395,9 @@ let deferredPrompt = null;
 const installBtn = document.getElementById('installBtn');
 const banner = document.querySelector('.install-box');
 
-// إذا سبق للمستخدم الضغط على Installer، ما نبانوش البانير
-if (localStorage.getItem('pwaInstalled') === 'true') {
-  banner.style.display = 'none';
-} else {
-  banner.style.display = 'flex'; // يبان البانير
+// يظهر البانير إلا سبق للمستخدم تثبيت التطبيق
+if (localStorage.getItem('pwaInstalled') !== 'true') {
+  banner.style.display = 'flex';
 }
 
 // قبل التثبيت
@@ -414,24 +412,31 @@ installBtn.addEventListener('click', () => {
   if (deferredPrompt) {
     deferredPrompt.prompt();  // نافذة التثبيت
     deferredPrompt.userChoice.then((choice) => {
-      // نخفي البانير نهائياً
-      banner.style.display = 'none';
-      // نخزن أن المستخدم ضغط على Installer
-      localStorage.setItem('pwaInstalled', 'true');
+      if (choice.outcome === 'accepted') {
+        // تخزين أنه ثبت التطبيق، ونخفي البانير
+        localStorage.setItem('pwaInstalled', 'true');
+        banner.style.display = 'none';
+      } else {
+        // حتى إذا رفض، نخفي البانير (لكن ما نخزنش)
+        banner.style.display = 'none';
+      }
       deferredPrompt = null;
     });
-  } else {
-    banner.style.display = 'none';
-    localStorage.setItem('pwaInstalled', 'true');
   }
 });
 
-// إذا ما ضغطش المستخدم، يتحيد بعد 8 ثواني
+// يتحيد بعد 2 ثواني إلا ما ضغطش المستخدم
 setTimeout(() => {
   if (banner.style.display !== 'none') {
     banner.style.display = 'none';
   }
 }, 2000);
+
+// Event كيتفعل إذا ثبت التطبيق من المتصفح
+window.addEventListener('appinstalled', () => {
+  localStorage.setItem('pwaInstalled', 'true');
+  banner.style.display = 'none';
+});
 </script>
     
     
