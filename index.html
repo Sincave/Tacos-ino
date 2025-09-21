@@ -391,51 +391,48 @@ setInterval(updateBadge, 60000); // يتحدث كل دقيقة
 }
 </style>
 
-  
 <script>
 let deferredPrompt = null;
 const installBtn = document.getElementById('installBtn');
 const banner = document.querySelector('.install-box');
 
-// 🔴 تحقق واش سبق حمل التطبيق
+// أول مرة كندخل نشيك واش التطبيق متبت
 if (!localStorage.getItem('appInstalled')) {
-  // عرض البانير للتجربة
   banner.style.display = 'flex';
 }
 
-// حدث قبل التثبيت
+// beforeinstallprompt
 window.addEventListener('beforeinstallprompt', (e) => {
   e.preventDefault();
   deferredPrompt = e;
   installBtn.style.display = 'inline-block';
 });
 
-// عند الضغط على Installer
+// عند الضغط على Install
 installBtn.addEventListener('click', () => {
   if (deferredPrompt) {
     deferredPrompt.prompt();
     deferredPrompt.userChoice.then((choice) => {
       if (choice.outcome === 'accepted') {
-        // ✅ تخزين معلومة أن التطبيق تثبّت
-        localStorage.setItem('appInstalled', 'true');
-        banner.style.display = 'none';
+        console.log("User accepted install");
       }
       deferredPrompt = null;
     });
   }
 });
 
-// اختفاء تلقائي بعد 8 ثواني
+// يختفي بعد 8 ثواني
 setTimeout(() => {
   banner.style.display = 'none';
-}, 3000);
+}, 8000);
 
-// 🔴 حتى لو الجهاز سجّل أن التطبيق متثبت (event system)
+// أهم حاجة 🔴
 window.addEventListener('appinstalled', () => {
+  console.log("App installed!");
   localStorage.setItem('appInstalled', 'true');
   banner.style.display = 'none';
 });
-</script>
+  </script>
     
     
 
