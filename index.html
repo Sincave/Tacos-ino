@@ -393,15 +393,17 @@ setInterval(updateBadge, 60000); // يتحدث كل دقيقة
 
   
 <script>
-
 let deferredPrompt = null;
 const installBtn = document.getElementById('installBtn');
 const banner = document.querySelector('.install-box');
 
-// ديما يبان (باش نجربو)
-banner.style.display = 'flex';
+// 🔴 تحقق واش سبق حمل التطبيق
+if (!localStorage.getItem('appInstalled')) {
+  // عرض البانير للتجربة
+  banner.style.display = 'flex';
+}
 
-// قبل التثبيت
+// حدث قبل التثبيت
 window.addEventListener('beforeinstallprompt', (e) => {
   e.preventDefault();
   deferredPrompt = e;
@@ -412,17 +414,27 @@ window.addEventListener('beforeinstallprompt', (e) => {
 installBtn.addEventListener('click', () => {
   if (deferredPrompt) {
     deferredPrompt.prompt();
-    deferredPrompt.userChoice.then(() => {
-      banner.style.display = 'none';
+    deferredPrompt.userChoice.then((choice) => {
+      if (choice.outcome === 'accepted') {
+        // ✅ تخزين معلومة أن التطبيق تثبّت
+        localStorage.setItem('appInstalled', 'true');
+        banner.style.display = 'none';
+      }
       deferredPrompt = null;
     });
   }
 });
 
-// يتحيد بعد 8 ثواني
+// اختفاء تلقائي بعد 8 ثواني
 setTimeout(() => {
   banner.style.display = 'none';
-}, 8000);
+}, 3000);
+
+// 🔴 حتى لو الجهاز سجّل أن التطبيق متثبت (event system)
+window.addEventListener('appinstalled', () => {
+  localStorage.setItem('appInstalled', 'true');
+  banner.style.display = 'none';
+});
 </script>
     
     
