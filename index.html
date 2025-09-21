@@ -390,13 +390,12 @@ setInterval(updateBadge, 60000); // يتحدث كل دقيقة
   transition: opacity 1s ease-out;
 }
 </style>
-
 <script>
 let deferredPrompt = null;
 const installBtn = document.getElementById('installBtn');
 const banner = document.querySelector('.install-box');
 
-// أول مرة كندخل نشيك واش التطبيق متبت أو سبق ضغط على الزر
+// أول مرة كندخل نشيك واش التطبيق متبت
 if (!localStorage.getItem('appInstalled')) {
   banner.style.display = 'flex';
 }
@@ -412,26 +411,26 @@ window.addEventListener('beforeinstallprompt', (e) => {
 installBtn.addEventListener('click', () => {
   if (deferredPrompt) {
     deferredPrompt.prompt();
-    deferredPrompt.userChoice.then(() => {
-      console.log("User clicked install ✅");
-      // نخزن باش مايبانش مرة أخرى
-      localStorage.setItem('appInstalled', 'true');
-      banner.style.display = 'none';
+    deferredPrompt.userChoice.then((choice) => {
+      if (choice.outcome === 'accepted') {
+        console.log("User accepted install");
+      }
       deferredPrompt = null;
     });
-  } else {
-    // حتى إلا ماكانش deferredPrompt
-    localStorage.setItem('appInstalled', 'true');
-    banner.style.display = 'none';
   }
 });
 
-// يختفي بعد 8 ثواني إلا ما تضغطش
+// يختفي بعد 8 ثواني
 setTimeout(() => {
-  if (!localStorage.getItem('appInstalled')) {
-    banner.style.display = 'none';
-  }
-}, 2500);
+  banner.style.display = 'none';
+}, 2000);
+
+// أهم حاجة 🔴
+window.addEventListener('appinstalled', () => {
+  console.log("App installed!");
+  localStorage.setItem('appInstalled', 'true');
+  banner.style.display = 'none';
+});
 </script>
     
     
