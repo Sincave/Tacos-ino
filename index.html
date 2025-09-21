@@ -395,42 +395,43 @@ let deferredPrompt = null;
 const installBtn = document.getElementById('installBtn');
 const banner = document.querySelector('.install-box');
 
-// أول مرة كندخل نشيك واش التطبيق متبت
-if (!localStorage.getItem('appInstalled')) {
-  banner.style.display = 'flex';
+// إذا سبق للمستخدم الضغط على Installer، ما نبانوش البانير
+if (localStorage.getItem('pwaInstalled') === 'true') {
+  banner.style.display = 'none';
+} else {
+  banner.style.display = 'flex'; // يبان البانير
 }
 
-// beforeinstallprompt
+// قبل التثبيت
 window.addEventListener('beforeinstallprompt', (e) => {
   e.preventDefault();
   deferredPrompt = e;
   installBtn.style.display = 'inline-block';
 });
 
-// عند الضغط على Install
+// عند الضغط على Installer
 installBtn.addEventListener('click', () => {
   if (deferredPrompt) {
-    deferredPrompt.prompt();
+    deferredPrompt.prompt();  // نافذة التثبيت
     deferredPrompt.userChoice.then((choice) => {
-      if (choice.outcome === 'accepted') {
-        console.log("User accepted install");
-      }
+      // نخفي البانير نهائياً
+      banner.style.display = 'none';
+      // نخزن أن المستخدم ضغط على Installer
+      localStorage.setItem('pwaInstalled', 'true');
       deferredPrompt = null;
     });
+  } else {
+    banner.style.display = 'none';
+    localStorage.setItem('pwaInstalled', 'true');
   }
 });
 
-// يختفي بعد 8 ثواني
+// إذا ما ضغطش المستخدم، يتحيد بعد 8 ثواني
 setTimeout(() => {
-  banner.style.display = 'none';
+  if (banner.style.display !== 'none') {
+    banner.style.display = 'none';
+  }
 }, 2000);
-
-// أهم حاجة 🔴
-window.addEventListener('appinstalled', () => {
-  console.log("App installed!");
-  localStorage.setItem('appInstalled', 'true');
-  banner.style.display = 'none';
-});
 </script>
     
     
